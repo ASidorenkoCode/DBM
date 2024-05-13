@@ -6,7 +6,7 @@
  *1. import --->java.sql
  *2. load and register the driver ---> com.jdbc.
  *3. create connection
- *4. create a statement
+ *4. create a statement in ConnectionBuild
  *5. execute the query
  *6. process the results
  *7. close
@@ -18,29 +18,19 @@ import java.util.Properties;
 
 class GFG {
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         String[] credentialsAndDatabase = getCredentials();
         String url = "jdbc:mysql://localhost:3306/" + credentialsAndDatabase[2]; // table details
         String username = credentialsAndDatabase[0]; // MySQL credentialsAndDatabase
         String password = credentialsAndDatabase[1];
-        String query
-                = "select * from emp"; // query to be run
-        Class.forName(
-                "com.mysql.cj.jdbc.Driver"); // Driver name
-        Connection con = DriverManager.getConnection(
-                url, username, password);
-        System.out.println(
-                "Connection Established successfully");
-        Statement st = con.createStatement();
-        ResultSet rs
-                = st.executeQuery(query); // Execute query
-        rs.next();
-        String name
-                = rs.getString("ename"); // Retrieve name from db
 
-        System.out.println(name); // Print result on console
-        st.close(); // close statement
+        Class.forName("com.mysql.cj.jdbc.Driver"); // Driver name
+        Connection con = DriverManager.getConnection(url, username, password);
+        System.out.println("Connection Established successfully");
+
+        DatabaseQueryRunner queryRunner = new DatabaseQueryRunner();
+        queryRunner.getEmployeeNames(con); // Execute query
+
         con.close(); // close connection
         System.out.println("Connection Closed....");
     }
@@ -73,3 +63,4 @@ class GFG {
         return credentials;
     }
 }
+

@@ -6,7 +6,7 @@
  *1. import --->java.sql
  *2. load and register the driver ---> com.jdbc.
  *3. create connection
- *4. create a statement in ConnectionBuild
+ *4. create a statement in DatabaseQueryRunner
  *5. execute the query
  *6. process the results
  *7. close
